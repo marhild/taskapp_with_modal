@@ -31,9 +31,6 @@ public class TaskController {
         //display all Tasks
         Set<Task> tasks = taskService.getTasks();
         model.addAttribute("tasks", tasks);
-        //newTask Form
-        Task newTask = new Task();
-        model.addAttribute("newTask", newTask);
 
         Set<Status> statusList = new HashSet<>();
         Status.stream().forEach(statusList::add);
@@ -58,10 +55,6 @@ public class TaskController {
         } else if(taskStatus.equals(Status.REOPENED.getTypeOfStatus())){
             model.addAttribute("tasks", taskService.getTasksByStatus(Status.REOPENED));
         }
-
-        //for newTask Form
-        Task newTask = new Task();
-        model.addAttribute("newTask", newTask);
 
         Set<Status> statusList = new HashSet<>();
         Status.stream().forEach(statusList::add);
@@ -105,31 +98,30 @@ public class TaskController {
     }
 
     /**
-     * Displays an EDIT Form for a Task
-     * @param model         task Object
-     * @param taskId        Id of the Task
-     * @return              edit Form
+     * updates Task in DB wirh field Values from EDIT Modal
+     * @param taskDetails   Task Object with field Values from EDIT Modal
+     * @return              redirect to dashboard
      */
-    @RequestMapping(value = "/task/{id}/edit", method=RequestMethod.GET)
-    public String editForm(Model model, @PathVariable("id") Long taskId) {
-        Set<Status> statusList = new HashSet<>();
-        Status.stream().forEach(statusList::add);
-        model.addAttribute("statusList", statusList);
-        model.addAttribute("editTask", taskService.findById(taskId));
-        return "editView";
+    @RequestMapping(path = "/update", method = RequestMethod.POST)
+    public String updateTaskWithModal(Task taskDetails) {
+        taskService.updateTask(taskDetails.getId(), taskDetails);
+        return "redirect:/";
     }
 
     /**
-     * Update Task and save changes in Database
-     * @param taskId        TaskId
-     * @param taskDetails   field values
-     * @return              redirect to Dashboard
+     * @ResponseBody: object returned is automatically serialized
+     * into JSON and passed back into the HttpResponse object
+     * (Source: https://www.baeldung.com/spring-request-response-body)
+     *
+     * @param taskId    taskId
+     * @return      Task from DB
      */
-    @RequestMapping(path = "/task/{id}/update", method = RequestMethod.POST)
-    public String updateTask(@PathVariable("id") long taskId, Task taskDetails) {
-        taskService.updateTask(taskId, taskDetails);
-        return "redirect:/";
+    @RequestMapping(path = "/findTask/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Task findTask(@PathVariable("id") long taskId){
+        return taskService.findById(taskId);
     }
+
 
     /**
      * Deletes Task from Database

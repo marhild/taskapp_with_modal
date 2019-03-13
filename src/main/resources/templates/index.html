@@ -5,52 +5,63 @@
 
 <body id="page-top">
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <th:block th:include="fragments/sidebarLeft"></th:block>
+        <th:block th:include="fragments/sidebarLeft"></th:block>
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-      <!-- Main Content -->
-      <div id="content">
+            <!-- Main Content -->
+            <div id="content">
 
-        <th:block th:include="fragments/navbar"></th:block>
+            <th:block th:include="fragments/navbar"></th:block>
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-          <!-- Content Row -->
-          <div class="row">
-            <!-- List of Tasks-->
-            <th:block th:include="tasks/tasks"></th:block>
+                <div class="row">
+                    <div class="col">
+                        <div style="margin-bottom: 20px;">
+                            <button class="btn btn-primary newBtn">
+                                <i class="fas fa-plus-circle"></i>  New Task
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Row -->
 
-            <!-- New Task -->
-            <th:block th:include="tasks/newTask"></th:block>
+                <div class="row">
+                    <!-- List of Tasks-->
+                    <th:block th:include="tasks/tasks"></th:block>
+                </div>
+                <div class="row">
+                    <th:block th:include="tasks/editModal"></th:block>
+                </div>
+                <div class="row">
+                    <th:block th:include="tasks/newModal"></th:block>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
 
-          </div>
+            </div>
+            <!-- End of Main Content -->
+
+            <th:block th:include="fragments/footer"></th:block>
 
         </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-      <th:block th:include="fragments/footer"></th:block>
+        <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- End of Page Wrapper -->
 
-  </div>
-  <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <th:block th:include="fragments/scripts"></th:block>
+    <th:block th:include="fragments/scripts"></th:block>
 
 </body>
 

@@ -14,16 +14,14 @@ import javax.validation.constraints.NotNull;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //unique id
-    @Column(name = "task_id")   //database column name
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id")
     private Long id;
 
-    //title may not be empty
-    //otherwise will cause error after form submission
     @NotEmpty
     private String title;
 
-    @Lob    //long object notation for texts
+    @Lob
     @NotEmpty
     @Type(type = "org.hibernate.type.TextType") //heroku config
     private String content;
